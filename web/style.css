@@ -1,0 +1,36 @@
+
+html {
+    font-family: 'Oswald', cursive;
+    font-size: 70pt;
+    height: 100%;
+}
+
+body {
+    text-align: center;
+    height: 100%;
+
+    margin: 0;
+}
+
+header, footer {
+    height: 50%;
+}
+
+
+header:before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 90%;
+}
+
+header {
+    background: white;
+    color: teal;
+    font-weight: bold;
+}
+
+footer {
+    background: teal;
+    color: white;
+}
