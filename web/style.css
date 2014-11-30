@@ -65,7 +65,7 @@ nav {
 }
 
 nav li {
-    margin: 0 10pt;
+    min-width: 40pt;
     display: inline-block;
     list-style-type: none;
 }
