@@ -155,8 +155,9 @@ module.exports = function(grunt) {
 
     //grunt.registerTask('default', ['requirejs', 'uglify']);
 
-    grunt.registerTask('install', ['copy', 'less'
+    grunt.registerTask('install', ['copy', 'less',
         //, 'requirejs', 'uglify'
+        'dist:latest'
     ]);
 
     // tags the project on the new version and pushes everything to remote
@@ -181,9 +182,10 @@ module.exports = function(grunt) {
         'dist:update',
         'copy',
         'less:production',
-        'less:min'
+        'less:min',
         //,
         //'requirejs',
         //'uglify'
+        'dist:latest'
     ])
 };
