@@ -2,7 +2,9 @@ module.exports = function(grunt) {
 
     'use strict';
 
-    require('jit-grunt')(grunt);
+    require('jit-grunt')(grunt, {
+        release: 'grunt-release-steps'
+    });
 
     grunt.registerTask('dist', 'dist content helper', function () {
         var done = this.async();
