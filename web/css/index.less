@@ -1,0 +1,81 @@
+@font-face {
+   font-family: 'Socialico Plus';
+   src: url('../fonts/Socialico-Plus.eot');
+   src: local('Socialico Plus'), url('../fonts/Socialico-Plus.woff') format('woff'), url('../fonts/Socialico-Plus.ttf') format('truetype'), url('../fonts/Socialico-Plus.svg') format('svg');
+   font-weight: normal;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: 'Socialico';
+   src: url('../fonts/Socialico-Plus.eot');
+   src: local('Socialico'), url('../fonts/Socialico.woff') format('woff'), url('../fonts/Socialico.ttf') format('truetype'), url('../fonts/Socialico.svg') format('svg');
+   font-weight: normal;
+   font-style: normal;
+}
+
+* {
+   padding: 0;
+   margin: 0;
+}
+
+html {
+   font-family: 'Oswald', cursive;
+   font-size: 70pt;
+   height: 100%;
+}
+
+body {
+   text-align: center;
+   height: 100%;
+
+   margin: 0;
+}
+
+header, footer {
+   height: 50%;
+}
+
+header:before {
+   content: "";
+   display: inline-block;
+   width: 0;
+   height: 90%;
+}
+
+header {
+   background: white;
+   color: teal;
+   font-weight: bold;
+}
+
+footer {
+   background: teal;
+   color: white;
+}
+
+nav {
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   text-align: center;
+   font-size: 35pt;
+   li {
+      min-width: 40pt;
+      display: inline-block;
+      list-style-type: none;
+   }
+   a {
+      text-decoration: none;
+      color: white;
+   }
+}
+
+.icon {
+   font-family: Socialico;
+}
+
+.icon-extended {
+   font-family: "Socialico Plus";
+}
