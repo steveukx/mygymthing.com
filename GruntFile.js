@@ -2,6 +2,8 @@ module.exports = function(grunt) {
 
     'use strict';
 
+    require('jit-grunt')(grunt);
+
     grunt.registerTask('dist', 'dist content helper', function () {
         var done = this.async();
         var target = this.args[0];
@@ -50,6 +52,20 @@ module.exports = function(grunt) {
 
                         done(!err);
                     });
+                break;
+
+            case "latest":
+                var fs = require('fs');
+                fs.exists('dist/latest', function(exists) {
+                    if (exists) {
+                        fs.unlinkSync('dist/latest');
+                    }
+
+                    fs.symlink(grunt.config.get('pkg.version'), 'dist/latest', function(err) {
+                        err && grunt.fatal(err);
+                        done(!err);
+                    });
+                });
                 break;
 
             default:
@@ -136,17 +152,6 @@ module.exports = function(grunt) {
         clean: ['dist']
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
-
-    grunt.loadNpmTasks('grunt-release-steps');
-
-    grunt.loadNpmTasks('grunt-contrib-clean');
-
-    grunt.loadNpmTasks('grunt-contrib-copy');
-
-    grunt.loadNpmTasks('grunt-contrib-less');
 
     //grunt.registerTask('default', ['requirejs', 'uglify']);
 
