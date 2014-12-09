@@ -151,6 +151,17 @@ module.exports = function(grunt) {
             }
         },
 
+        template: {
+            html: {
+                options: {
+                    data: '<%= pkg %>'
+                },
+                files: {
+                    'dist/index.html': 'web/index.html'
+                }
+            }
+        },
+
         clean: ['dist']
     });
 
@@ -159,7 +170,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('install', ['copy', 'less',
         //, 'requirejs', 'uglify'
-        'dist:latest'
+        'template'
     ]);
 
     // tags the project on the new version and pushes everything to remote
