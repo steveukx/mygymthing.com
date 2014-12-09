@@ -93,7 +93,7 @@ module.exports = function(grunt) {
                     paths: ['web/css']
                 },
                 files: {
-                    'dist/<%= pkg.version %>/css/index.css': 'web/css/index.less'
+                    'dist/css/index.css': 'web/css/index.less'
                 }
             },
             min: {
@@ -102,7 +102,7 @@ module.exports = function(grunt) {
                     cleancss: true
                 },
                 files: {
-                    'dist/<%= pkg.version %>/css/index.min.css': 'web/css/index.less'
+                    'dist/css/index.min.css': 'web/css/index.less'
                 }
             }
         },
@@ -117,7 +117,7 @@ module.exports = function(grunt) {
                             'fonts/*',
                             '*'
                         ],
-                        dest: 'dist/<%= pkg.version %>/'
+                        dest: 'dist/'
                     }
                 ]
             }
@@ -129,7 +129,7 @@ module.exports = function(grunt) {
             },
             build: {
                 files: {
-                    'dist/<%= pkg.version %>/<%= pkg.name %>.min.js': 'dist/<%= pkg.version %>/<%= pkg.name %>.js'
+                    'dist/<%= pkg.name %>.min.js': 'dist/<%= pkg.name %>.js'
                 }
             }
         },
@@ -137,7 +137,7 @@ module.exports = function(grunt) {
         requirejs: {
             compile: {
                 options: {
-                    out: 'dist/<%= pkg.version %>/<%= pkg.name %>.js',
+                    out: 'dist/<%= pkg.name %>.js',
                     name: 'App',
                     baseUrl: 'web/js/',
                     optimize: 'none',
