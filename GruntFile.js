@@ -6,6 +6,46 @@ module.exports = function(grunt) {
         release: 'grunt-release-steps'
     });
 
+    grunt.registerTask('serve', function () {
+
+        var done = this.async();
+        var express = require('express');
+        var app = express();
+
+        var config = grunt.config('pkg');
+        for (var property in config) {
+            if (config.hasOwnProperty(property)) {
+                app.set(property, app.locals[property] = config[property]);
+            }
+        }
+
+        app.set('views', './web');
+        app.set('view engine', 'mustache');
+        app.engine('mustache', require('hogan-middleware').__express);
+
+        app.use('/' + grunt.config.get('pkg.version'), require('less-middleware')(__dirname + '/web'));
+        app.use('/' + grunt.config.get('pkg.version'), express.static(__dirname + '/web'));
+
+        app.use('/', function (req, res, next) {
+            var strip = /(\.html|\/)$/;
+            if (strip.test(req.url)) {
+                var viewName = req.url.substr(1).replace(strip, '') || 'index';
+                console.log('Rendering ', viewName);
+                res.render(viewName);
+            }
+            else {
+                next();
+            }
+        });
+
+        app.get('/exit', function (req, res) {
+            res.send('OK');
+            done(true);
+        });
+
+        app.listen(9090);
+    });
+
     grunt.registerTask('dist', 'dist content helper', function () {
         var done = this.async();
         var target = this.args[0];
@@ -108,14 +148,13 @@ module.exports = function(grunt) {
         },
 
         copy: {
-            main: {
+            fonts: {
                 files: [
                     {
                         expand: true,
                         cwd: 'web/',
                         src: [
-                            'fonts/*',
-                            '*'
+                            'fonts/*'
                         ],
                         dest: 'dist/'
                     }
@@ -151,26 +190,29 @@ module.exports = function(grunt) {
             }
         },
 
-        template: {
-            html: {
-                options: {
-                    data: '<%= pkg %>'
-                },
-                files: {
-                    'dist/index.html': 'web/index.html'
-                }
+        clean: ['dist'],
+
+        mustache_render: {
+            options: {
+                data: "package.json"
+            },
+            compile: {
+                files: [
+                    {
+                        template: "web/index.mustache",
+                        dest: "dist/index.html",
+                        data: "<%= pkg %>"
+                    }
+                ]
             }
-        },
-
-        clean: ['dist']
+        }
     });
-
 
     //grunt.registerTask('default', ['requirejs', 'uglify']);
 
     grunt.registerTask('install', ['copy', 'less',
         //, 'requirejs', 'uglify'
-        'template'
+        'mustache_render'
     ]);
 
     // tags the project on the new version and pushes everything to remote

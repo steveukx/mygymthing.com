@@ -6,4 +6,5 @@ node_modules/
 *.pid
 *.iml
 
-
+# static content can be compiled in-place for live testing
+web/**/*.css
