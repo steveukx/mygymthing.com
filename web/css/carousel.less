@@ -47,4 +47,27 @@
       }
    }
 
+   &.carousel-complete {
+      .tile {
+         transform: none;
+         transition: none;
+         position: relative;
+      }
+
+      .tile:nth-child(1) {
+         opacity: 1;
+
+      }
+      .tile:nth-child(n+2) {
+         transition: opacity linear 250ms;
+         opacity: 1;
+         font-size: 30pt;
+         width: 30%;
+         display: inline-block;
+         text-align: center;
+         white-space: normal;
+         vertical-align: middle;
+         line-height: 1;
+      }
+   }
 }
