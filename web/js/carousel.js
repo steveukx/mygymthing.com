@@ -2,10 +2,14 @@ jQuery(function () {
 
     'use strict';
 
+    var transformsSupported = 'transform' in document.createElement('div').style;
+
     jQuery('.carousel').each(function () {
 
         var timeout, active = -1;
-        var container = jQuery(this);
+        var container = jQuery(this)
+            .toggleClass('with-transformations', transformsSupported)
+            .toggleClass('no-transformations', !transformsSupported);
         var tiles = container.children('.tile');
         var duration = parseInt(container.data('duration') || 10, 3) * 1000;
         var iterations = container.data('iterations') || 'infinite';
@@ -70,7 +74,7 @@ jQuery(function () {
                 finish();
             }
         };
-        go();
+        setTimeout(go);
     });
 
 });
