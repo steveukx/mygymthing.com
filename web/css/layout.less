@@ -1,0 +1,130 @@
+html {
+   font: 10pt/1 "Lucida Grande", "Helvetica Nueue", Arial, sans-serif;
+   height: 100%;
+}
+
+body {
+   text-align: center;
+   height: 100%;
+
+   margin: 0;
+   background: @background-color;
+}
+
+.site-header, footer {
+   font-family: 'Oswald', "Bookman", Georgia, "Times New Roman", serif;
+   font-size: 70pt;
+   height: 50%;
+   transition: all @transition-duration ease;
+
+   &:before {
+      content: "";
+      display: inline-block;
+      width: 0;
+      height: 0;
+
+      transition: height @transition-duration ease;
+   }
+}
+
+.site-header {
+   background: white;
+   color: @background-color;
+   font-weight: bold;
+   position: relative;
+   text-align: center;
+
+   a {
+      margin: 0.5em auto;
+      text-decoration: none;
+      color: @background-color;
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+   }
+}
+
+footer {
+   background: @background-color;
+   color: white;
+
+   .carousel-complete .footer-heading {
+      transition-property: font-size, opacity;
+      transition-duration: @transition-duration;
+   }
+}
+
+.social-nav {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   text-align: center;
+   font-size: 35pt;
+   z-index: 10;
+
+   li {
+      min-width: 40pt;
+      display: inline-block;
+      list-style-type: none;
+   }
+   a {
+      text-decoration: none;
+      color: white;
+   }
+
+   @media screen and (max-width: @tablet-screen-width) {
+      bottom: auto;
+      top: 0;
+      font-size: 18pt;
+
+      a {
+         color: @background-color;
+      }
+   }
+
+   @media screen and (max-height: @mobile-screen-width) {
+      display: none;
+   }
+}
+
+.hidden {
+   display: none;
+}
+
+body.with-content {
+
+   .site-header, footer {
+      font-size: 35pt;
+      height: 25%;
+
+      &:before {
+         display: none;
+      }
+   }
+
+   .main {
+      height: 50%;
+      overflow: auto;
+      border-top: 2px solid @background-color;
+      background: white;
+   }
+
+   @media screen and (max-width: @tablet-screen-width) {
+      .site-header, footer {
+         height: 10%;
+         font-size: 20pt;
+      }
+
+      .main {
+         height: 80%;
+      }
+   }
+
+   .footer-heading {
+      font-size: 0;
+      opacity: 0;
+   }
+}

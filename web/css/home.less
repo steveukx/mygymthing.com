@@ -1,0 +1,77 @@
+
+.footer-nav {
+
+   a {
+      color: #fff;
+      text-decoration: none;
+      cursor: default;
+   }
+
+   &.carousel-complete {
+
+      a {
+         cursor: pointer;
+
+         &:hover {
+            text-decoration: underline;
+         }
+      }
+
+      .tile {
+         transform: none;
+         transition: none;
+         position: relative;
+      }
+
+      .footer-heading {
+         opacity: 1;
+      }
+
+      .footer-item {
+         transition: opacity linear 250ms;
+         opacity: 1;
+         font-size: 30pt;
+         width: 30%;
+         display: inline-block;
+         text-align: center;
+         white-space: normal;
+         vertical-align: middle;
+         line-height: 1;
+
+         @media screen and (max-width: @tablet-screen-width) {
+            font-size: 15pt;
+         }
+      }
+   }
+}
+
+.home-page {
+
+   &.with-content {
+      .footer-nav {
+         margin-top: 0.5rem;
+      }
+   }
+
+   .main {
+
+      h1 {
+         font-size: 35pt;
+         margin: 0.5rem auto;
+         text-shadow: -1px 1px 1px @background-color;
+      }
+
+      article {
+         @media screen and (min-width: 768px) {
+            -webkit-column-count: 3;
+            -moz-column-count: 3;
+            column-count: 3;
+         }
+
+         font-size: 20pt;
+         text-align: left;
+         margin: 0.5rem;
+      }
+
+   }
+}

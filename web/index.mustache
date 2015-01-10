@@ -3,27 +3,22 @@
     <head>
         <link href="http://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
         <link rel="stylesheet" href="/{{ version }}/css/index.css">
+
+        <meta name="viewport" content="width=device-width">
     </head>
 
-    <body>
-        <nav>
-            <ul>
-                <li><a class="icon" href="http://twitter.com/MyGymThing">T</a></li>
-                <li><a class="icon" href="http://www.facebook.com/MyGymThing">F</a></li>
-                <li><a class="icon icon-extended" href="http://instagram.com/MyGymThing">I</a></li>
-            </ul>
-        </nav>
-        <header>my gym thing</header>
+    <body class="home-page {{^banner}}with-content{{/banner}}">
+        {{> social-nav}}
+        <header class="site-header"><a href="/">my gym thing</a></header>
+        <section class="main{{^leanMuscle}} hidden{{/leanMuscle}}">{{> lean-muscle }}</section>
+        <section class="main{{^weightLoss}} hidden{{/weightLoss}}">{{> weight-loss }}</section>
+        <section class="main{{^strength}}   hidden{{/strength}}">{{>   strength }}</section>
         <footer>
-            <ul class="carousel" data-iterations="1" data-first="1" data-final="start" data-duration="2">
-                <li class="tile">what's yours?</li>
-                <li class="tile">weight loss</li>
-                <li class="tile">lean muscle</li>
-                <li class="tile">strength &amp; power</li>
-            </ul>
+            {{> footer-nav}}
         </footer>
 
         <script src="/{{ version }}/js/ext/jquery-1.11.2.min.js"></script>
         <script src="/{{ version }}/js/carousel.js"></script>
+        <script src="/{{ version }}/js/home.js"></script>
     </body>
 </html>
