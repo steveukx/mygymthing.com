@@ -1,0 +1,44 @@
+
+
+* {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+   -moz-box-sizing: border-box;
+}
+
+html {
+   font: 10pt/1.5 "Lucida Grande", "Helvetica Nueue", Arial, sans-serif;
+   height: 100%
+}
+
+body {
+   text-align: center;
+   height: 100%;
+   margin: 0;
+   background-image: -webkit-linear-gradient(bottom, @site-highlight-color 50%, @site-background-color 50%);
+   background-image: -ms-linear-gradient(bottom, @site-highlight-color 50%, @site-background-color 50%);
+   background-image: linear-gradient(to top, @site-highlight-color 50%, @site-background-color 50%);
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='teal', GradientType=0)
+}
+
+@import "components/header-footer";
+@import "components/social-nav";
+
+
+.coloured {
+   color: #008080
+}
+
+.horizontal-list {
+   vertical-align: middle
+}
+
+.horizontal-spacer {
+   margin-left: 2rem;
+   margin-right: 2rem;
+
+   .horizontal-spacer {
+      margin-left: 0
+   }
+}

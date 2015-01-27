@@ -1,0 +1,35 @@
+
+.site-header, .site-footer {
+   font-family: 'Oswald', cursive;
+   font-size: 70pt;
+
+   @media screen and (max-width: @mobile-device-width) {
+      font-size: 40pt
+   }
+
+}
+
+.site-header {
+   color: @site-highlight-color;
+   font-weight: bold;
+   height: 50%;
+
+   &:before {
+      content: "";
+      display: inline-block;
+      width: 0;
+      height: 90%
+   }
+}
+
+.site-footer {
+   color: @site-background-color;
+   position: absolute;
+   top: 50%;
+   width: 100%;
+   text-align: center;
+
+   a {
+      color: @site-background-color
+   }
+}
