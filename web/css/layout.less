@@ -19,7 +19,15 @@ body {
    background-image: -webkit-linear-gradient(bottom, @site-highlight-color 50%, @site-background-color 50%);
    background-image: -ms-linear-gradient(bottom, @site-highlight-color 50%, @site-background-color 50%);
    background-image: linear-gradient(to top, @site-highlight-color 50%, @site-background-color 50%);
-   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='teal', GradientType=0)
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='teal', GradientType=0);
+
+   &.with-no-footer {
+      background-image: none;
+   }
+
+   &.with-social-footer {
+      padding-bottom: 40pt;
+   }
 }
 
 @import "components/header-footer";
