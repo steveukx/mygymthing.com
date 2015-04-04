@@ -190,29 +190,13 @@ module.exports = function(grunt) {
             }
         },
 
-        clean: ['dist'],
-
-        mustache_render: {
-            options: {
-                data: "package.json"
-            },
-            compile: {
-                files: [
-                    {
-                        template: "web/index.mustache",
-                        dest: "dist/index.html",
-                        data: "<%= pkg %>"
-                    }
-                ]
-            }
-        }
+        clean: ['dist']
     });
 
     //grunt.registerTask('default', ['requirejs', 'uglify']);
 
-    grunt.registerTask('install', ['copy', 'less',
+    grunt.registerTask('install', ['copy', 'less'
         //, 'requirejs', 'uglify'
-        'mustache_render'
     ]);
 
     // tags the project on the new version and pushes everything to remote
