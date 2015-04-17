@@ -1,0 +1,30 @@
+
+body > header, body > footer {
+   height: 50%;
+   position: relative;
+}
+
+body > header {
+   background: white;
+   color: teal;
+   font-weight: bold;
+
+   &:before {
+      content: "";
+      display: inline-block;
+      width: 0;
+      height: 90%;
+   }
+
+   .header-content {
+      position: absolute;
+      bottom: 0;
+      font-size: 12pt;
+   }
+
+}
+
+body > footer {
+   background: teal;
+   color: white;
+}
