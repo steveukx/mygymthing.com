@@ -2,15 +2,21 @@
 .button, button {
 
    outline: none;
-   padding: 3px 6px;
+   padding: 4pt 12pt 6pt 12pt;
    vertical-align: middle;
    border-radius: 3px;
    border: 1px solid rgb(0, 128, 128, 0.5);
+   background-color: teal;
+   color: white;
+   font-weight: bold;
 
-   &:focus {
-      background-color: teal;
-      color: white;
-      box-shadow: 0 0 3px rgba(255, 255, 255, 0.5) inset;
+   &:hover, &:focus {
+      box-shadow: 0 0 3px white inset;
    }
 
+   &:active {
+      background-color: teal;
+      color: white;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset;
+   }
 }
