@@ -1,20 +1,15 @@
-(function () {
+define([
+    './util/dom'
+], function (
+    dom
+) {
 
-    var closest = function (startFrom, matching) {
-        do {
-            if (startFrom.matches(matching)) {
-                return startFrom;
-            }
-        }
-        while (startFrom = startFrom.parentNode);
-    };
-
-    [].forEach.call(document.querySelectorAll('button[data-action'), function (element) {
-        element.addEventListener('click', function () {
-            var form = closest(element, 'form');
-            form.setAttribute('action', element.getAttribute('data-action'));
+    dom('button[data-action')
+        .on('click', function () {
+            var button = dom(this);
+            var form = button.closest('form');
+            form.attr('action', button.attr('data-action'));
             form.submit();
-        }, true);
-    });
+        });
 
-}());
+});
