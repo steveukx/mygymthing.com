@@ -1,0 +1,28 @@
+
+.block-layout-form {
+
+   label {
+      display: block;
+      .spaced;
+
+      span {
+         .spaced;
+         &:after {
+            content: ":";
+         }
+      }
+   }
+
+   input, select, textarea {
+      outline: none;
+      padding: 3px;
+      vertical-align: middle;
+      border-radius: 3px;
+      border: 1px solid rgb(0, 128, 128, 0.5);
+
+      &:focus {
+         box-shadow: 0 0 3px teal inset;
+      }
+   }
+
+}

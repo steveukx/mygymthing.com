@@ -5,19 +5,26 @@
 </head>
 
 <body>
-<nav>
+<nav class="social-nav">
     <ul>
         {{>social-nav-items}}
     </ul>
 </nav>
 <header>
     <div class="header-content">
-        <form action="/auth/register">
+        <form action="/auth/login" method="post" class="block-layout-form">
             <label><span>username</span> <input name="username"></label>
             <label><span>password</span> <input name="pasword" type="password"></label>
+
+            <div class="spaced">
+                <button data-action="/auth/login">log in</button> or
+                <button data-action="/auth/register">sign up</button>
+            </div>
         </form>
     </div>
 </header>
 <footer>my gym thing</footer>
+
+<script src="/{{ version }}/js/login.js" async defer></script>
 </body>
 </html>
