@@ -10,7 +10,10 @@
                 {{>social-nav-items}}
             </ul>
         </nav>
-        <header><span class="header-text">my gym thing</span></header>
+        <header>
+            {{#user}} {{>user-home}} {{/user}}
+            {{^user}}<span class="header-text">my gym thing</span>{{/user}}
+        </header>
         <footer>what's yours?</footer>
     </body>
 </html>
