@@ -5,8 +5,8 @@ body > header, body > footer {
 }
 
 body > header {
-   background: white;
-   color: teal;
+   background: @background-color;
+   color: @highlight-color;
    font-weight: bold;
 
    &:before {
@@ -33,6 +33,6 @@ body > header {
 }
 
 body > footer {
-   background: teal;
-   color: white;
+   background: @highlight-color;
+   color: @background-color;
 }
