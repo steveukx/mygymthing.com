@@ -7,3 +7,17 @@
    margin-left: auto;
    margin-right: auto;
 }
+
+.column-layout {
+   display: flex;
+   flex-direction: row;
+
+   .column {
+      flex: 1;
+      margin: 6pt 6pt 6pt 0;
+
+      &:first-of-type {
+         margin-left: 6pt;
+      }
+   }
+}
