@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        {{>meta}}
+        <title>Workouts</title>
+    </head>
+
+    <body>
+        <nav class="social-nav">
+            <ul>
+                {{>social-nav-items}}
+            </ul>
+        </nav>
+
+        <header>
+            <div class="header-content column-layout">
+                <section class="column">
+                    <button data-action="start">Start a workout</button>
+                </section>
+                <section class="column">
+                </section>
+                <section class="column">
+                </section>
+            </div>
+        </header>
+
+        <footer>my gym thing</footer>
+        {{>require}}
+        <script data-main="workouts" src="/{{ version }}/js/ext/require.2.1.6-min.js" async defer></script>
+    </body>
+</html>
