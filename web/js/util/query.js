@@ -4,6 +4,24 @@ define(function () {
 
     var empty = [];
     var push = empty.push;
+    var dataCache = {};
+    var unique = function (node) {
+        var elementId;
+        if (!(elementId = node.dataset.elementId)) {
+            elementId = node.dataset.elementId = (unique.unique = (unique.unique || Date.now()) + 1);
+        }
+
+        if (!dataCache[elementId]) {
+            dataCache[elementId] = {
+                _node: node,
+                _has: function (key) {
+                    return this.hasOwnProperty(key);
+                }
+            };
+        }
+
+        return elementId;
+    };
 
     function Query (elements, parent) {
         this._elements = empty.concat(elements || empty);
@@ -57,6 +75,12 @@ define(function () {
         return query;
     };
 
+    Query.prototype.clone = function () {
+        return new Query(this._elements.map(function (element) {
+            return element.cloneNode(true);
+        }), this);
+    };
+
     Query.prototype.closest = function (matching) {
         var startFrom = this._elements[0];
         while (startFrom) {
@@ -74,6 +98,28 @@ define(function () {
         return this.each(function (element) {
             element.style[property] = value;
         });
+    };
+
+    Query.prototype.data = function (name, value) {
+        if (arguments.length === 1 && !this._elements.length) {
+            return null;
+        }
+        else if (arguments.length === 1) {
+            var element = this._elements[0];
+            var elementId = unique(element);
+
+            return dataCache[elementId]._has(name) ? dataCache[elementId][name] : element.dataset[name] || null;
+        }
+        else if (value && typeof value === 'object') {
+            return this.each(function (node) {
+                dataCache[unique(node)][name] = value;
+            });
+        }
+        else {
+            return this.each(function (node) {
+                node.dataset[name] = value;
+            });
+        }
     };
 
     Query.prototype.each = function (callback) {
@@ -118,6 +164,20 @@ define(function () {
         });
     };
 
+    Query.prototype.insertAfter = function (reference) {
+        if (reference instanceof Query) {
+            reference = reference.get(0);
+        }
+
+        if (!reference) {
+            throw new Error("Query:insertAfter requires a valid reference node");
+        }
+
+        return this.each(function (node) {
+            reference.parentNode.insertBefore(node, reference.nextSibling);
+        });
+    };
+
     Query.prototype.is = function (matching) {
         return this._elements.every(function (node) {
             return node.matches(matching);
@@ -138,6 +198,19 @@ define(function () {
 
         return this.each(function (element) {
             element[name] = value;
+        });
+    };
+
+    Query.prototype.remove = function () {
+        return this.each(function (element) {
+            element.parentNode && element.parentNode.removeChild(element);
+            delete dataCache[element.dataset.elementId];
+        });
+    };
+
+    Query.prototype.removeAttr = function (name) {
+        return this.each(function (node) {
+            node.removeAttribute(name);
         });
     };
 

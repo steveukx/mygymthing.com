@@ -9,6 +9,7 @@
    background-color: @highlight-color;
    color: @background-color;
    font-weight: bold;
+   position: relative;
 
    &:hover, &:focus {
       box-shadow: 0 0 3px @background-color inset;
@@ -18,5 +19,22 @@
       background-color: @highlight-color;
       color: @background-color;
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset;
+   }
+}
+
+.button-bar {
+   :nth-child(n+1) {
+      margin-left: 6pt;
+   }
+
+   :last-child:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      box-shadow: 0 0 12pt rgba(255,255,255,0.3) inset;
    }
 }

@@ -16,46 +16,54 @@ define([
      *
      * @constructor
      */
-    function Dialog (model) {
-        if (!this) {
-            return new Dialog(model);
-        }
+    function Dialog (model, header) {
+        var dialog = this || Object.create(Dialog.prototype);
 
-        this.model = model;
-        this.ok = 'OK';
-        this.cancel = 'Cancel';
+        dialog.model = model;
+        dialog.header = header;
+        dialog.actions = ['Cancel', 'OK'];
+
+        return dialog;
     }
     Dialog.prototype = Object.create(event.prototype);
 
     Dialog.prototype.buttons = function (ok, cancel) {
-        this.ok = ok;
-        this.cancel = cancel;
+        this.actions = [].slice.call(arguments);
         return this;
     };
 
-    Dialog.prototype._createDom = function (header, content) {
+    Dialog.prototype._createDom = function (content) {
         return (
             this._dom = dom(html)
-                .find('> header').text(header).end()
                 .find('> section').html(content).end()
+                .find('> footer').on('click', this._onActionClick.bind(this)).end()
                 .appendTo('body')
         );
     };
 
-    Dialog.prototype._onClose = function (e) {
-        debugger;
-        this.emit('close', this.model);
+    Dialog.prototype._onActionClick = function (e) {
+        var buttonData = dom(e.target).data('templateData');
+        var action = typeof buttonData === 'string' ? buttonData : buttonData && buttonData.action;
+
+        if (action) {
+            this.emit(action, this.model);
+        }
+
+        this._dom.get(0).close();
     };
 
-    Dialog.prototype.show = function (header, content) {
-        this._createDom(header, content).get(0).show();
+    Dialog.prototype._onClose = function (e) {
+        this.emit('close', this.model);
+        this._dom.remove();
+    };
+
+    Dialog.prototype.show = function (content) {
+        this._createDom(content).get(0).show();
         return this;
     };
 
-    Dialog.prototype.showModal = function (header, content) {
-        debugger
-
-        this._createDom(header, content)
+    Dialog.prototype.showModal = function (content) {
+        this._createDom(content)
             .addClass('modal')
             .on('close', this._onClose.bind(this))
             .model(this)
@@ -66,6 +74,12 @@ define([
 
     Dialog.prototype.close = function () {
 
+    };
+
+    Dialog.alert = function (message, title) {
+        return (new Dialog({}, title || '')
+                    .buttons({text: 'OK', action: 'ok'})
+                    .showModal(message));
     };
 
     return Dialog;
