@@ -14,6 +14,7 @@ define([
      */
     function Workout () {
         this.targets = WorkoutTarget.allTargets();
+        this.history = [];
     }
 
     Workout.prototype.hasTargets = function () {
@@ -30,18 +31,35 @@ define([
         });
     };
 
+    /**
+     * Starts the workout, when no targets are selected will reject the returned promise.
+     *
+     * @returns {*|Promise}
+     */
     Workout.prototype.start = function () {
         var workout = this;
+
         return new Promise(function (resolve, reject) {
             var targets = workout.targets = workout.targets.filter(WorkoutTarget.filterSelected);
             if (!targets.length) {
-                reject(new Error("No selected targets"));
+                return reject("No selected targets");
             }
-            else {
-                resolve(workout);
-            }
+
+            getPreviousWorkouts(workout)
+                .then(resolve);
         });
     };
+
+    /**
+     * TODO: should fetch a list of available previous workouts to start from
+     *
+     * @param {Workout} workout
+     * @returns {Promise}
+     */
+    function getPreviousWorkouts (workout) {
+        workout.history = [];
+        return Promise.resolve(workout);
+    }
 
     return Workout;
 

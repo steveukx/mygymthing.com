@@ -14,6 +14,10 @@ define([
         this.editable = workoutTarget.editable !== false;
     }
 
+    WorkoutTarget.prototype.toString = function () {
+        return this.name;
+    };
+
     WorkoutTarget.all = [];
 
     WorkoutTarget.targets = targets.reduce(function (targets, target) {
