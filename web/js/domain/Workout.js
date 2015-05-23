@@ -1,7 +1,9 @@
 define([
-    './WorkoutTarget'
+    './WorkoutTarget',
+    './Activity'
 ], function (
-    WorkoutTarget
+    WorkoutTarget,
+    Activity
 ) {
 
     'use strict';
@@ -15,6 +17,7 @@ define([
     function Workout () {
         this.targets = WorkoutTarget.allTargets();
         this.history = [];
+        this.activities = [];
     }
 
     Workout.prototype.hasTargets = function () {
@@ -29,6 +32,11 @@ define([
             workout.history = data;
             return workout;
         });
+    };
+
+    Workout.prototype.addActivity = function (name) {
+        this.activities.push(new Activity(name));
+        return this;
     };
 
     /**
