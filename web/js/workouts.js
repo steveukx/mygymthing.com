@@ -14,7 +14,11 @@ define([
     startWorkoutTemplate
 ) {
 
-    dom('[data-action="start"]').on('click', function (e) {
+    function WorkoutView() {
+    }
+
+    WorkoutView.prototype.start = function () {
+        var view = this;
         var workout = new Workout();
 
         dialog(workout, 'Create Workout')
@@ -24,21 +28,14 @@ define([
             )
             .showModal(createWorkoutTemplate)
             .on('start', function (workout) {
-                workout
+                (view.workout = workout)
                     .start()
                     .catch(onError)
-                    .then(showWorkoutPicker)
-                    .then(startWorkout);
+                    .then(showWorkoutPicker);
             });
-    });
+    };
 
-    function startWorkout (workout) {
-        console.log(workout);
-
-        dom('.workout-content')
-            .html(startWorkoutTemplate)
-            .model(workout);
-    }
+    dom('.header-content').model(new WorkoutView);
 
     function showWorkoutPicker (workout) {
         return new Promise(function (resolve, reject) {

@@ -14,11 +14,24 @@
 
         <header>
             <div class="header-content column-layout">
-                <section class="column">
-                    <button data-action="start">Start a workout</button>
+
+                <section class="column actions-column">
+                    <div data-if="workout">
+                        <button data-action="new-activity">New Exercise</button>
+                    </div>
+                    <button data-click="start()">Start a workout</button>
                 </section>
-                <section class="column workout-content">
+
+                <section class="column workout-content" data-if="workout">
+
+                    <header data-text="workout.targets"></header>
+
+                    <div data-repeat="workout.activities">
+                        <span data-text="name"></span>
+                    </div>
+
                 </section>
+
                 <section class="column">
                 </section>
             </div>

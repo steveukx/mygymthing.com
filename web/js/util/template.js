@@ -59,15 +59,20 @@ define([
 
                     if (plugin.subTree) {
                         ignoreTree.push(node);
-                        if (typeof handler === 'function') {
+                        if (typeof handler === 'function' && !plugin.handlerCache) {
                             handler(model);
                         }
                     }
-                    else if (typeof handler === 'function') {
+
+                    if (typeof handler === 'function' && (!plugin.subTree || plugin.handlerCache)) {
                         handlerCache.push({
                             node: node,
                             handler: handler
                         });
+                    }
+
+                    if (typeof handler !== 'function' && plugin.templateData) {
+                        Query.data(node, 'templateData', model);
                     }
 
                     return plugin.subTree;
@@ -84,6 +89,15 @@ define([
             entry.handler(model, null);
         });
     }
+
+    template.eval = function (model, key) {
+        var cacheKey = ':' + key;
+
+        if (!template.eval[cacheKey]) {
+            template.eval[cacheKey] = new Function ('model', 'return model.' + key + ';');
+        }
+        return template.eval[cacheKey](model);
+    };
 
     template.plugins = [];
     template.plugins.register = function (name, handler) {
@@ -131,6 +145,26 @@ define([
         }
     });
 
+    template.plugins.register('if', function (node, key, reverseUpdate) {
+        var placeHolder = node.before('<!-- if -->').get(0).previousSibling;
+        var content = node.remove().clone();
+        var current;
+
+        return function (model, update) {
+            var exists = template.eval(model, key);
+            if (exists && !current) {
+                current = content
+                    .clone()
+                    .insertAfter(placeHolder)
+                    .model(model);
+            }
+            else if (!exists && current) {
+                console.log('TODO: validate');
+                current.remove();
+            }
+        };
+    }, 'sub-tree', true, 'handler-cache', true);
+
     template.plugins.register('bind', function (node, key, reverseUpdate) {
         return function (model) {
             template(node, model[key]);
@@ -139,7 +173,7 @@ define([
 
     template.plugins.register('text', function (node, key, reverseUpdate) {
         return function (model) {
-            var data = (key === 'text' && typeof model === 'string') ? model : model[key];
+            var data = (key === 'text' && typeof model === 'string') ? model : template.eval(model, key);
             node.text(data || '');
         };
     });
@@ -178,13 +212,25 @@ define([
         };
 
         return function (model) {
-            observe(model[key], function (changes) {
+            var repeatable = template.eval(model, key);
+            observe(repeatable, function (changes) {
                 console.log('TODO, observing change in repeat model')
             });
 
-            model[key].forEach(populate);
+            repeatable.forEach(populate);
         };
     }, 'sub-tree', true, 'priority', 0);
+
+    template.plugins.register('click', function (node, key) {
+        node.on('click', function (e) {
+            var model = node.data('templateData');
+            var handler = template.eval(model, key);
+
+            if (typeof handler === 'function') {
+                handler.call(model, e);
+            }
+        });
+    }, 'template-data', true);
 
     Query.extend('model', function (model) {
         return this.each(function (element) {

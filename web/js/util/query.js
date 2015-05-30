@@ -65,6 +65,15 @@ define(function () {
         }
     };
 
+    Query.prototype.before = function (content) {
+        var isString = typeof content === 'string';
+        return this.each(function (element) {
+            isString
+                ? element.insertAdjacentHTML('beforeBegin', content)
+                : element.parentNode && element.parentNode.insertBefore(content, element);
+        });
+    };
+
     Query.prototype.children = function (matching) {
         var query = new Query(null, this);
         this._elements.forEach(function (element) {
@@ -237,6 +246,17 @@ define(function () {
         return this.each(function (element) {
             element.value = value;
         });
+    };
+
+    Query.data = function (node, name, value) {
+        var cache = dataCache[unique(node)];
+        if (arguments.length === 2) {
+            return cache.hasOwnProperty('name') ? cache[name] : cache.dataset[name];
+        }
+
+        if (arguments.length === 3) {
+            cache[name] = value;
+        }
     };
 
     Query.fragment = function (fragment) {
